@@ -5,4 +5,4 @@ Required modules:
  - Pillow
 
 
-Implemented all the drawing mechanics except repeat, but nothing else yet.
+Implemented all the drawing mechanics except repeat and label, but nothing else yet.
