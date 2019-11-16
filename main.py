@@ -70,11 +70,27 @@ def processText(text):
             turtle.setXY(0, 0)
             turtle.canvas.create_line(x + turtle.xOff, y + turtle.yOff, turtle.x + turtle.xOff, turtle.y + turtle.yOff)
         elif words[i] == "repeat":
-            sub = text[text.find('[') + 1:text.rfind(']')]
-            for i in range(int(words[i + 1])):
-                processText(sub)
-            text = text.replace(text[text.find('['):text.rfind(']') + 1], '')
-            words = list(text.split(" "))
+            index = i
+            z = 1
+            txt = ""
+            i += 2
+            txt += words[i] + " "
+            i += 1
+            while z != 0:
+                if "]" in words[i]:
+                    z -= 1
+                elif "[" in words[i]:
+                    z += 1
+                txt += words[i] + " "
+                i += 1
+            index1=txt.find("[")
+            index2=txt.rfind("]")
+            txt = txt[0:index1]+txt[index1+1:index2]+txt[index2+1:]
+            for j in range(int(words[index + 1])-1):
+                processText(txt)
+            words[index + 2] = words[index + 2].replace("[", "")
+            words[i-1] = words[i-1].replace("]", "")
+            i = index
         elif words[i] == "label":
             turtle.canvas.create_text(turtle.x + turtle.xOff, turtle.y + turtle.yOff, anchor='nw', text=words[i + 1])
             i += 1
